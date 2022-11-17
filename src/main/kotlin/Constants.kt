@@ -1,0 +1,1 @@
+const val SIZE = 9
