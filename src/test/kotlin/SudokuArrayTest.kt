@@ -7,6 +7,7 @@ class SudokuArrayTest {
     private fun readFile(fileName: String): Array<IntArray> {
         val bufferedReader = File(fileName).bufferedReader()
         return bufferedReader.readLines().map { line ->
+            println(line)
             line.split(" ").map { char -> char.toInt() }.toIntArray()
         }.toTypedArray()
     }

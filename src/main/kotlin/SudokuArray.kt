@@ -1,19 +1,38 @@
 class SudokuArray(private val sudoku: Array<IntArray>) {
 
-    val numbersIndex: Set<Index>
-        get() {
-            val set = mutableSetOf<Index>()
-            for (i in 0 until MAIN_SIZE) {
-                for (j in 0 until MAIN_SIZE) {
-                    if (sudoku[i][j] == 0) set.add(sudoku[i][j])
-                }
+    fun contains(index: Index): Boolean {
+        return index.getSudokuItem(sudokuArray = sudoku) == 0
+    }
+
+    fun print() {
+        sudoku.forEach { array ->
+            println(array.joinToString(" "))
+        }
+    }
+    fun get(index: Index) = sudoku[index.i][index.j]
+
+    fun isLast(index: Index) = get(index = index) == LAST
+
+    fun reset(index: Index) {
+        sudoku[index.i][index.j] = 0
+    }
+
+    fun increase(index: Index): Boolean {
+        val first = get(index = index) + 1
+        for (number in first..LAST) {
+            if (!checkNumber(index = index, number)) {
+                sudoku[index.i][index.j] = number
+                return true
             }
         }
+        sudoku[index.i][index.j] = 0
+        return false
+    }
 
-    private fun checkNumber(i: Int, j: Int, number: Int): Boolean {
-        val flagHorizontal = containsHorizontal(i, number)
-        val flagVertical = containsVertical(j, number)
-        val flagSquare = containsSquare(i, j, number)
+    private fun checkNumber(index: Index, number: Int): Boolean {
+        val flagHorizontal = containsHorizontal(index.i, number)
+        val flagVertical = containsVertical(index.j, number)
+        val flagSquare = containsSquare(index, number)
         return flagHorizontal || flagVertical || flagSquare
     }
 
@@ -25,9 +44,9 @@ class SudokuArray(private val sudoku: Array<IntArray>) {
         return sudoku[i].contains(number)
     }
 
-    private fun containsSquare(i: Int, j: Int, number: Int): Boolean {
-        val indexI = (i % SIZE) * SIZE
-        val indexJ = (j % SIZE) * SIZE
+    private fun containsSquare(index: Index, number: Int): Boolean {
+        val indexI = (index.i / SIZE) * SIZE
+        val indexJ = (index.j / SIZE) * SIZE
         val items = mutableSetOf<Int>()
         for (n in indexI until indexI + SIZE) {
             for (m in indexJ until indexJ + SIZE) {
@@ -39,6 +58,6 @@ class SudokuArray(private val sudoku: Array<IntArray>) {
 
     companion object {
         private const val SIZE = 3
-        private const val MAIN_SIZE = 9
+        private const val LAST = 9
     }
 }

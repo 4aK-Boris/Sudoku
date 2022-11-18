@@ -14,9 +14,7 @@ class Sudoku {
     fun solveWithReverseTrackingAlgorithm() {
         val reverseTrackingAlgorithm = ReverseTrackingAlgorithm()
         val result = reverseTrackingAlgorithm.solve(sudoku = sudokuArray)
-        result?.forEach { array ->
-            println(array.joinToString(" "))
-        }
+        result.print()
     }
 
 }
