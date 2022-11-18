@@ -4,11 +4,8 @@ class SudokuArray(private val sudoku: Array<IntArray>) {
         return index.getSudokuItem(sudokuArray = sudoku) == 0
     }
 
-    fun print() {
-        sudoku.forEach { array ->
-            println(array.joinToString(" "))
-        }
-    }
+    fun getArray() = sudoku
+
     fun get(index: Index) = sudoku[index.i][index.j]
 
     fun isLast(index: Index) = get(index = index) == LAST

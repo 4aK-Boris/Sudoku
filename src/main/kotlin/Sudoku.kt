@@ -2,19 +2,9 @@ import java.io.File
 
 class Sudoku {
 
-    private lateinit var sudokuArray: Array<IntArray>
-
-    fun readFile(fileName: String) {
-        val bufferedReader = File(fileName).bufferedReader()
-        sudokuArray = bufferedReader.readLines().map { line ->
-            line.split(" ").map { char -> char.toInt() }.toIntArray()
-        }.toTypedArray()
-    }
-
-    fun solveWithReverseTrackingAlgorithm() {
+    fun solve(sudokuArray: Array<IntArray>): Array<IntArray> {
         val reverseTrackingAlgorithm = ReverseTrackingAlgorithm()
         val result = reverseTrackingAlgorithm.solve(sudoku = sudokuArray)
-        result.print()
+        return result.getArray()
     }
-
 }

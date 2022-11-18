@@ -10,7 +10,7 @@ class Indexes {
                 }
             }
         }
-        index = initialValues.first()
+        index = initialValues.firstOrNull()
     }
 
     fun next() {
