@@ -2,20 +2,29 @@ import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.*
+import androidx.compose.material.Button
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Text
+import androidx.compose.material.TextField
+import androidx.compose.material.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
-import androidx.compose.ui.input.key.Key
-import androidx.compose.ui.input.key.key
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
@@ -27,7 +36,6 @@ import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.WindowState
 import androidx.compose.ui.window.application
 import java.io.File
-import java.util.Arrays
 
 private const val SIZE = 9
 private const val SIZE_ITEM = 3
@@ -118,7 +126,7 @@ fun App() {
                 }
 
                 Button(onClick = {
-                    val sudokuArray = readFile(fileName = "sudoku.txt")
+                    val sudokuArray = readFile(fileName = "sudoku3.txt")
                     sudokuArray.forEachIndexed { i, ints ->
                         ints.forEachIndexed { j, number ->
                             array[i][j].value = number.toString()
@@ -126,6 +134,16 @@ fun App() {
                     }
                 }) {
                     Text(text = "Загрузить из файла")
+                }
+
+                Button(onClick = {
+                    array.forEach { list ->
+                        list.forEach {
+                            it.value = "0"
+                        }
+                    }
+                }) {
+                    Text(text = "Очистить")
                 }
             }
         }
